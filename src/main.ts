@@ -1,5 +1,4 @@
 import * as THREE from "three";
-import { VRButton } from "three/examples/jsm/webxr/VRButton.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import "./style.css";
 
@@ -23,15 +22,6 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.xr.enabled = true;
 app.appendChild(renderer.domElement);
-document.body.appendChild(VRButton.createButton(renderer));
-
-const help = document.createElement("div");
-help.className = "vr-help";
-help.innerHTML = [
-  "Desktop: arrastra para mirar alrededor.",
-  "Quest: abre esta pagina y pulsa Enter VR para usar tracking de cabeza."
-].join("<br />");
-document.body.appendChild(help);
 
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
