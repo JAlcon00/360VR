@@ -1,0 +1,9 @@
+services:
+  vr360:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    container_name: vr360-nginx
+    ports:
+      - "8080:80"
+    restart: unless-stopped

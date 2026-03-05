@@ -41,7 +41,7 @@ npm run preview
 
 El proyecto ya incluye el workflow: `.github/workflows/deploy-pages.yml`.
 
-Se activa en cada push a `main` y publica automaticamente en GitHub Pages.
+Se activa en cada push a `main` y siempre hace build. El deploy a GitHub Pages se ejecuta solo si defines la variable de repositorio `ENABLE_GITHUB_PAGES=true`.
 
 ### Activar en GitHub
 
@@ -51,6 +51,8 @@ Se activa en cada push a `main` y publica automaticamente en GitHub Pages.
 4. Haz push a la rama `main`.
 5. Espera a que termine el workflow `Deploy to GitHub Pages` en la pestaña `Actions`.
 
+Si ves errores como `Resource not accessible by integration`, deja `ENABLE_GITHUB_PAGES` sin activar y usa el despliegue con Nginx (seccion de abajo).
+
 Al finalizar, la URL publicada aparecera en la configuracion de Pages y esa URL HTTPS sirve para abrir `Enter VR` desde Quest.
 
 ### Nota sobre rutas
@@ -59,6 +61,35 @@ Al finalizar, la URL publicada aparecera en la configuracion de Pages y esa URL 
 
 - Repositorio tipo `usuario.github.io`: publica en `/`
 - Repositorio normal: publica en `/<nombre-repo>/`
+
+## Servidor con Nginx (Docker)
+
+Incluido en el repo:
+
+- `Dockerfile.nginx`
+- `docker-compose.yml`
+- `nginx/default.conf`
+
+### Levantar servidor Nginx local
+
+```bash
+docker compose up --build -d
+```
+
+Abre:
+
+- `http://localhost:8080` en desktop
+- `http://TU_IP_LOCAL:8080` desde el visor en la misma red
+
+Para detenerlo:
+
+```bash
+docker compose down
+```
+
+### Nota para VR en Quest
+
+Para que aparezca `Enter VR` en Quest necesitas HTTPS valido. Nginx local en HTTP es util para pruebas 2D/desktop, pero para VR en el visor publica con HTTPS (VPS + Certbot, Cloudflare Tunnel, Netlify, Vercel, etc.).
 
 ## Archivos clave
 
